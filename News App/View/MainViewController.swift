@@ -50,5 +50,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         return articleCell
     
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let newCell = cellViewModel.newsArray[indexPath.row]
+            let urlToImage = newCell.urlToImage
+            
+            let webViewController = WebViewController(urlString: urlToImage)
+            self.navigationController?.pushViewController(webViewController, animated: true)
+        }
+
    
 }
