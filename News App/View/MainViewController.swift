@@ -9,7 +9,7 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    var cellViewModel = TableCellViewModel()
+     var cellViewModel = TableCellViewModel()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -17,11 +17,11 @@ final class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
-        
+
     }
-    
-    
 }
+
+
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellViewModel.newsArray.count
@@ -46,7 +46,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        
+    
         return articleCell
+    
     }
+   
 }

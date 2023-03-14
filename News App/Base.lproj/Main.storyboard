@@ -41,16 +41,21 @@
                             <constraint firstItem="fqK-hX-jjU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jn1-cl-WDY"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="40j-H0-YyA"/>
                     <connections>
                         <outlet property="tableView" destination="fqK-hX-jjU" id="WmH-nq-cLt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="98"/>
+            <point key="canvasLocation" x="2497.1014492753625" y="93.75"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="AccentColor"/>
     <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

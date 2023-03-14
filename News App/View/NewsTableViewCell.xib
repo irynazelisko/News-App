@@ -26,7 +26,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bk4-jB-1tt">
-                        <rect key="frame" x="132" y="44.5" width="160" height="18"/>
+                        <rect key="frame" x="132" y="44.5" width="134" height="18"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -38,30 +38,30 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hjz-JR-6gG">
-                        <rect key="frame" x="132" y="20" width="158" height="21.5"/>
+                        <rect key="frame" x="132" y="20" width="130" height="21.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0rT-3s-eTX">
-                        <rect key="frame" x="297.5" y="74" width="15" height="15"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0rT-3s-eTX">
+                        <rect key="frame" x="299.5" y="73" width="12.5" height="16.5"/>
                         <color key="tintColor" systemColor="systemGray4Color"/>
                     </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="0T0-mj-tB6" firstAttribute="top" secondItem="Bk4-jB-1tt" secondAttribute="bottom" constant="3" id="4kd-3O-OnX"/>
-                    <constraint firstAttribute="trailing" secondItem="Bk4-jB-1tt" secondAttribute="trailing" constant="28" id="5UE-uB-whZ"/>
                     <constraint firstItem="Hjz-JR-6gG" firstAttribute="leading" secondItem="udE-6Z-Tem" secondAttribute="trailing" constant="12" id="5d2-gf-sof"/>
+                    <constraint firstItem="0rT-3s-eTX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="71" id="7EH-WM-EPe"/>
                     <constraint firstItem="Hjz-JR-6gG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="JD5-OX-sTP"/>
                     <constraint firstAttribute="trailing" secondItem="0rT-3s-eTX" secondAttribute="trailing" constant="8" id="M5X-MV-fJZ"/>
                     <constraint firstItem="Bk4-jB-1tt" firstAttribute="top" secondItem="Hjz-JR-6gG" secondAttribute="bottom" constant="3" id="MKW-Lu-qla"/>
                     <constraint firstItem="udE-6Z-Tem" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="NHR-o6-3Im"/>
                     <constraint firstItem="Bk4-jB-1tt" firstAttribute="leading" secondItem="udE-6Z-Tem" secondAttribute="trailing" constant="12" id="RZy-MQ-kSe"/>
+                    <constraint firstAttribute="trailing" secondItem="Bk4-jB-1tt" secondAttribute="trailing" constant="54" id="S3u-51-SQp"/>
+                    <constraint firstAttribute="trailing" secondItem="Hjz-JR-6gG" secondAttribute="trailing" constant="58" id="TAy-Zl-Txb"/>
                     <constraint firstItem="0T0-mj-tB6" firstAttribute="leading" secondItem="udE-6Z-Tem" secondAttribute="trailing" constant="12" id="dbs-VR-Kdh"/>
-                    <constraint firstItem="0rT-3s-eTX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="72" id="fD5-5z-eDN"/>
                     <constraint firstItem="udE-6Z-Tem" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="27" id="gRh-q5-WwS"/>
                     <constraint firstAttribute="bottom" secondItem="udE-6Z-Tem" secondAttribute="bottom" constant="28" id="iCa-GY-Bfm"/>
-                    <constraint firstAttribute="trailing" secondItem="Hjz-JR-6gG" secondAttribute="trailing" constant="30" id="s3P-ga-eLV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -71,7 +71,7 @@
                 <outlet property="title" destination="Hjz-JR-6gG" id="fZe-DZ-QNI"/>
                 <outlet property="urlToImage" destination="udE-6Z-Tem" id="HhH-0B-x4I"/>
             </connections>
-            <point key="canvasLocation" x="169.56521739130437" y="113.83928571428571"/>
+            <point key="canvasLocation" x="245" y="113"/>
         </tableViewCell>
     </objects>
     <resources>

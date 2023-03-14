@@ -23,10 +23,10 @@ final class TableCellViewModel {
         NewsCell(title: "The giants of adtech are facing challengers in the privacy era | Singular", author: "Dean Takahashi", source: "VentureBeat", urlToImage: "https://venturebeat.com/wp-content/uploads/2023/03/SINGULAR.jpg?w=1200&strip=all"),
         NewsCell(title: "Las gafas AR de Meta podrían llegar en 2027", author: "Rubén Chicharro", source: "Hipertextual", urlToImage: "https://imgs.hipertextual.com/wp-content/uploads/2021/10/Facebook-Meta-Zuckerberg.jpg"),
         NewsCell(title: "Why Spy Agencies May Lose Sweeping Surveillance Powers", author: "Vera Bergengruen", source: "Time", urlToImage:
-            "https://api.time.com/wp-content/uploads/2023/02/assistant-ag-Matthew-Olsen.jpg?quality=85&w=1200&h=628&crop=1"),
+                    "https://api.time.com/wp-content/uploads/2023/02/assistant-ag-Matthew-Olsen.jpg?quality=85&w=1200&h=628&crop=1"),
         NewsCell(title: "Is \"Come Out, Ye Black & Tans\" just the 1920 version of \"Fuck The Police?\"", author: "Thom Dunn", source: "Boing Boing", urlToImage: "https://i0.wp.com/boingboing.net/wp-content/uploads/2023/02/a4010642901_10-2.jpg?fit=1200%2C760&ssl=1"),
         NewsCell(title: "Choice Day en AliExpress: aprovecha los descuentos en económicos relojes inteligentes, auriculares Bluetooth y mucho más", author: "Christian Ruiz", source: "Xataka.com", urlToImage:
-            "https://i.blogs.es/8a1d1e/apertura-choice-day-aliexpress/840_560.jpeg"),
+                    "https://i.blogs.es/8a1d1e/apertura-choice-day-aliexpress/840_560.jpeg"),
         NewsCell(title: "Apple-ID nach PIN-Klau besser absichern: Bildschirmzeit hilft – so geht's", author: "Ben Schwan", source: "heise online", urlToImage: "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/3/7/0/9/7/2/1/iphone-13-pro-camera-1f297811b0df11f4.jpeg"),
         NewsCell(title: "Apple patent granted for embedded Face ID expected in iPhone 16 Pro [U]", author: "Ben Lovejoy", source: "9to5Mac", urlToImage:  "https://i0.wp.com/9to5mac.com/wp-content/uploads/sites/6/2023/02/Embedded-Face-ID.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1"),
         NewsCell(title: "Apple Card promotion promises $150 cash back for select new applicants", author: "news@appleinsider.com (Wesley Hilliard)", source: "AppleInsider", urlToImage:  "https://photos5.appleinsider.com/gallery/53256-106729-Apple-Card-xl.jpg"),
@@ -41,8 +41,7 @@ final class TableCellViewModel {
         NewsCell(title: "Apple Watch’s March Activity Challenge is dedicated to International Women’s Day", author: "Tech Desk", source: "The Indian Express", urlToImage: "https://images.indianexpress.com/2023/03/apple-watch-womens-day-challenge-featured.jpg")
     ]
     
-
-
+   
 func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
     URLSession.shared.dataTask(with: url) { data, response, error in
         if let imageData = data {
