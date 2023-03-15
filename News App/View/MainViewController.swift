@@ -9,7 +9,7 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-     var cellViewModel = TableCellViewModel()
+    var cellViewModel = TableCellViewModel()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -17,7 +17,7 @@ final class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
-
+        
     }
 }
 
@@ -34,21 +34,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         let article = cellViewModel.newsArray[indexPath.row]
+        cellViewModel.registerCell(articleCell, with: article)
         
-        articleCell.title.text = article.title
-        articleCell.author.text = article.author
-        articleCell.source.text = article.source
-        
-        if let url = URL(string: article.urlToImage) {
-            cellViewModel.loadImage(from: url) { image in
-                DispatchQueue.main.async {
-                    articleCell.urlToImage.image = image
-                }
-            }
-        }
-    
         return articleCell
-    
+        
     }
-   
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newCell = cellViewModel.newsArray[indexPath.row]
+        let urlToImage = newCell.urlToImage
+        
+        let webViewController = WebViewController(urlString: urlToImage)
+        self.navigationController?.pushViewController(webViewController, animated: true)
+    }
+    
+    
 }
