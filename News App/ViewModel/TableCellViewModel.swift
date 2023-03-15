@@ -68,17 +68,7 @@ final class TableCellViewModel {
             }
         }.resume()
     }
-    
-    func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let imageData = data {
-                completion(UIImage(data: imageData))
-            } else {
-                completion(nil)
-            }
-            
-        }.resume()
-    }
+
 }
 
 
