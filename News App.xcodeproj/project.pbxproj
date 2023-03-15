@@ -90,6 +90,7 @@
 			children = (
 				82BE218629A3DA3B004B302B /* AppDelegate.swift */,
 				82BE218829A3DA3B004B302B /* SceneDelegate.swift */,
+				82A5E30029C07C0F0089800A /* WebViewController.swift */,
 				82FAE89329AEB5070074CCE6 /* Model */,
 				82FAE89229AEB4F80074CCE6 /* View */,
 				82FAE89429AEB5100074CCE6 /* ViewModel */,
@@ -104,7 +105,6 @@
 		82FAE89229AEB4F80074CCE6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				82A5E30029C07C0F0089800A /* WebViewController.swift */,
 				82BE218A29A3DA3B004B302B /* MainViewController.swift */,
 				82FAE89529AF313E0074CCE6 /* NewsTableViewCell.swift */,
 				82FAE89629AF313E0074CCE6 /* NewsTableViewCell.xib */,
