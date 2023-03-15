@@ -34,7 +34,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         guard let articleCell = cell as? NewsTableViewCell else {
             return cell
         }
-        let article = cellViewModel.newsArray[indexPath.row]
+        
         cellViewModel.registerCell(articleCell, with: article)
         
         return articleCell
