@@ -17,6 +17,7 @@ final class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
+        
     }
 }
 
@@ -33,18 +34,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         guard let articleCell = cell as? NewsTableViewCell else {
             return cell
         }
-        
-        articleCell.title.text = article.title
-        articleCell.author.text = article.author
-        articleCell.source.text = article.source
-        
-        if let url = URL(string: article.urlToImage) {
-            cellViewModel.loadImage(from: url) { image in
-                DispatchQueue.main.async {
-                    articleCell.urlToImage.image = image
-                }
-            }
-        }
+        let article = cellViewModel.newsArray[indexPath.row]
+        cellViewModel.registerCell(articleCell, with: article)
         
         return articleCell
         

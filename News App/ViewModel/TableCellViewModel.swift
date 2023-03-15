@@ -42,6 +42,10 @@ final class TableCellViewModel {
         NewsCell(title: "Apple Watch’s March Activity Challenge is dedicated to International Women’s Day", author: "Tech Desk", source: "The Indian Express", urlToImage: "https://images.indianexpress.com/2023/03/apple-watch-womens-day-challenge-featured.jpg", id: UUID().uuidString)
     ]
     
+    func registerCell(_ articleCell: NewsTableViewCell, with article: NewsCell) {
+        articleCell.title.text = article.title
+        articleCell.author.text = article.author
+        articleCell.source.text = article.source
     var favoriteNewsArray: [NewsCell] = []
     
     
@@ -63,6 +67,27 @@ final class TableCellViewModel {
         }
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         
+        loadImage(from: article.urlToImage) { image in
+            articleCell.urlToImage.image = image
+        }
+    }
+    
+    func loadImage(from url: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: url) else {
+            completion(nil)
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let imageData = data {
+                if let image = UIImage(data: imageData) {
+                    DispatchQueue.main.async {
+                        completion(image)
+                    }
+                } else {
+                    completion(nil)
+                }
+            }
+        }.resume()
     }
     
     func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
@@ -77,3 +102,5 @@ final class TableCellViewModel {
     }
     
 }
+
+
