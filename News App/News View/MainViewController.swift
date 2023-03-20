@@ -9,7 +9,7 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    var cellViewModel = TableCellViewModel()
+    var tableViewModel = NewsViewViewModel()
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -17,47 +17,54 @@ final class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
-        
     }
 }
 
-
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellViewModel.newsArray.count
+        return tableViewModel.newsCells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath)
-        let article = cellViewModel.newsArray[indexPath.row]
+        let article = tableViewModel.newsCells[indexPath.row]
         
         guard let articleCell = cell as? NewsTableViewCell else {
             return cell
         }
         
-        cellViewModel.registerCell(articleCell, with: article)
+        articleCell.setUpData(viewModel: article)
         
         return articleCell
-        
     }
+    
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let article = cellViewModel.newsArray[indexPath.row]
-        let cell = tableView.cellForRow(at: indexPath) as! NewsTableViewCell
-        
+        let article = tableViewModel.newsCells[indexPath.row]
         
         // Створюємо favorite action
-        let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { (action, view, completion) in
-            self.cellViewModel.addToFavorites(with: article.id, for: cell.favoriteButton)
-            print("Added to favorites")
+        let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { [weak self] (action, view, completion) in
+            self?.tableViewModel.addToFavorites(with: article.id)
+            if let icon = self?.tableViewModel.favoriteIcon(id: article.id) {
+                if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
+                    cell.upDateFavoriteButton(icon: icon)
+                }
+                print("Added to favorites")
+            }
             completion(true)
         }
         favoriteAction.backgroundColor = .lightGray
         
         
         // Створюємо unfavorite action
-        let unfavoriteAction = UIContextualAction(style: .destructive, title: "Unfavorite") { (action, view, completion) in
-            self.cellViewModel.removeFromFavorites(with: article.id, for: cell.favoriteButton)
-            print("Removed from favorites")
+        let unfavoriteAction = UIContextualAction(style: .destructive, title: "Unfavorite") { [weak self] (action, view, completion) in
+            self?.tableViewModel.removeFromFavorites(with: article.id)
+            if let icon = self?.tableViewModel.favoriteIcon(id: article.id) {
+                if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
+                    cell.upDateFavoriteButton(icon: icon)
+                }
+                print("Removed from favorites")
+            }
             completion(true)
         }
         
@@ -69,12 +76,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let newCell = cellViewModel.newsArray[indexPath.row]
-        let urlToImage = newCell.urlToImage
+        let newCell = tableViewModel.newsCells[indexPath.row]
+        let urlToImage = newCell.imageCellView
         
         let webViewController = WebViewController(urlString: urlToImage)
         self.navigationController?.pushViewController(webViewController, animated: true)
     }
-    
     
 }
