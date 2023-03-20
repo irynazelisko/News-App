@@ -26,7 +26,7 @@ final class WebViewController: UIViewController,WKNavigationDelegate {
         override func viewDidLoad() {
             super.viewDidLoad()
             self.navigationController?.navigationBar.isTranslucent = false
-    //        self.edgesForExtendedLayout = []
+    //   варіант №2   self.edgesForExtendedLayout = []
             if let url = URL(string: urlString) {
                 let request = URLRequest(url: url)
                 webView.load(request)
