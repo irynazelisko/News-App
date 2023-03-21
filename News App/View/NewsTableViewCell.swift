@@ -15,7 +15,11 @@ final class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak  var source: UILabel!
     @IBOutlet weak  var favoriteButton: UIButton!
     
-    var viewModel: TableCellViewModel?
+    var viewModel: TableCellViewModel? {
+        didSet{
+            initData()
+        }
+    }
     
     override func prepareForReuse() {
         imageCellView.image = nil
@@ -31,6 +35,7 @@ final class NewsTableViewCell: UITableViewCell {
     
     func setUpData(viewModel: TableCellViewModel) {
         self.viewModel = viewModel
+        
     }
     
     private func initData() {
