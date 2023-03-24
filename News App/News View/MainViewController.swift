@@ -10,6 +10,7 @@ import UIKit
 final class MainViewController: UIViewController {
     
     var tableViewModel = NewsViewViewModel()
+    let favoritiesViewModel = FavoritiesViewModel()
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -34,7 +35,7 @@ final class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFavorites" {
             let favoritesViewController = segue.destination as! FavoritiesViewController
-            favoritesViewController.favoritesList = tableViewModel.favoriteNewsArray
+            favoritesViewController.favoritiesViewModel.favoritesList = tableViewModel.favoriteNewsArray
             
         }
     }

@@ -9,8 +9,7 @@ import UIKit
 
 final class FavoritiesViewController: UIViewController {
     
-    var favoritesList: [String] = []
-  
+    let favoritiesViewModel = FavoritiesViewModel()
     let viewModel = NewsViewViewModel()
     
     @IBOutlet weak var tableView: UITableView!
@@ -24,12 +23,12 @@ final class FavoritiesViewController: UIViewController {
 
 extension FavoritiesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritesList.count
+        return favoritiesViewModel.favoritesList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath)
-        let articleId = favoritesList[indexPath.row]
+        let articleId = favoritiesViewModel.favoritesList[indexPath.row]
         let article = viewModel.newsCells.first(where: { $0.id == articleId })
         
         guard let articleCell = cell as? NewsTableViewCell, let article = article else {
