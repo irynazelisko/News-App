@@ -12,10 +12,10 @@ protocol NewsViewPresentationModel {
     func favoriteIcon(id: String) -> String
     func addToFavorites(with id: String)
     func removeFromFavorites(with id: String)
-    
 }
 
 final class NewsViewViewModel: NewsViewPresentationModel {
+    
     func favoriteIcon(id: String) -> String {
         if favoriteNewsArray.contains(id){
             return "heart.fill"
@@ -25,7 +25,8 @@ final class NewsViewViewModel: NewsViewPresentationModel {
     
     var newsCells: [TableCellViewModel] = NewsDataSourceMock.newsArray.map{ TableCellViewModel(news: $0) }
     
-    var favoriteNewsArray: [String] = []
+    var favoriteNewsArray: [String] = [] 
+       
     
     func addToFavorites(with id: String) {
         favoriteNewsArray.append(id)
@@ -33,9 +34,10 @@ final class NewsViewViewModel: NewsViewPresentationModel {
     
     func removeFromFavorites(with id: String) {
         if let index = favoriteNewsArray.firstIndex(of: id) {
-          favoriteNewsArray.remove(at: index)
+            favoriteNewsArray.remove(at: index)
         }
     }
+  
     
     
 }

@@ -23,6 +23,7 @@ final class NewsTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         imageCellView.image = nil
+        favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
     }
     
     override func awakeFromNib() {
