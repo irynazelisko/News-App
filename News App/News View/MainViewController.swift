@@ -11,6 +11,7 @@ final class MainViewController: UIViewController {
     
     var tableViewModel = NewsViewViewModel()
     let favoritiesViewModel = FavoritiesViewModel()
+    let refreshControl = UIRefreshControl()
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,7 +21,16 @@ final class MainViewController: UIViewController {
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
         setUp()
+        // cтворюємо об'єкт UIRefreshControl для оновлення вмісту таблиці та додаємо до таблички
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
+    
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        tableView.reloadData()
+        sender.endRefreshing() // зупиняємо процес оновлення
+    }
+    
     
     func setUp(){
         let favoritesButton = UIBarButtonItem(image: UIImage(systemName: "heart.text.square"), style: .plain, target: self,action: #selector(showFavorites))
@@ -40,8 +50,6 @@ final class MainViewController: UIViewController {
         }
     }
 }
-
-
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
