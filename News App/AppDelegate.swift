@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+//        print(Realm.Configuration.defaultConfiguration.fileURL)
+//      let newsCell = NewsCell()
+//
+//        do{
+//            let realm = try! Realm()
+//            try! realm.write{
+//                realm.add(newsCell)
+//            }
+//        }
+//    } catch{
+//        print("Error \(error)")
+//    }
+       
        
         // Override point for customization after application launch.
         return true
@@ -34,5 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-}
 
+
+}

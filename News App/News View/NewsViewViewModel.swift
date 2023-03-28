@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol NewsViewPresentationModel {
     var  newsCells: [TableCellViewModel] { get }
@@ -15,6 +16,8 @@ protocol NewsViewPresentationModel {
 }
 
 final class NewsViewViewModel: NewsViewPresentationModel {
+    
+//    let realm = try! Realm()
     
     func favoriteIcon(id: String) -> String {
         if favoriteNewsArray.contains(id){
