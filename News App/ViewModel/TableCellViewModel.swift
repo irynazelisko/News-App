@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 protocol TableCellPresentationModel {
     var author: String { get }
     var title: String { get }

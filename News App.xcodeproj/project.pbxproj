@@ -88,6 +88,14 @@
 			path = "Favorite List";
 			sourceTree = "<group>";
 		};
+		827304EF29D4B0470049E4F2 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				821C4DAA29D0EE7E00559F37 /* NewsDataManager.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
 		82BE217A29A3DA3B004B302B = {
 			isa = PBXGroup;
 			children = (
@@ -109,7 +117,7 @@
 		82BE218529A3DA3B004B302B /* News App */ = {
 			isa = PBXGroup;
 			children = (
-				821C4DAA29D0EE7E00559F37 /* NewsDataManager.swift */,
+				827304EF29D4B0470049E4F2 /* DataManager */,
 				821C4DA729CDCD2F00559F37 /* Favorite List */,
 				82CE91EC29C4851C006CB261 /* Mock */,
 				82CE91E929C48122006CB261 /* News View */,

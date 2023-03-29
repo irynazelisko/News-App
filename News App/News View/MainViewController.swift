@@ -13,6 +13,7 @@ final class MainViewController: UIViewController {
     var tableViewModel = NewsViewViewModel()
     let favoritiesViewModel = FavoritiesViewModel()
     let refreshControl = UIRefreshControl()
+    var realmDB: Realm!
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -25,6 +26,10 @@ final class MainViewController: UIViewController {
         // cтворюємо об'єкт UIRefreshControl для оновлення вмісту таблиці та додаємо до таблички
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
+        
+        realmDB = try! Realm()
+        print(realmDB.configuration.fileURL!)
+        
     }
     
     @objc func refreshData(_ sender: UIRefreshControl) {
@@ -85,8 +90,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 print("Added to favorites")
             }
+            let newsObject = NewsObject()
+            newsObject.title = article.title
+            newsObject.author = article.author
+            newsObject.source = article.source
+            newsObject.imageCellView = article.imageCellView
+            newsObject.id = article.id
+            let newsDataManager = NewsDataManager()
+            newsDataManager.save(news: newsObject) // зберігаємо обʼєкт в базі даних
+   
             completion(true)
         }
+        
         favoriteAction.backgroundColor = .lightGray
         
         
@@ -99,9 +114,16 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 print("Removed from favorites")
             }
+    
+           
+            let dataManager = NewsDataManager()
+            let newsObjects = dataManager.getNews()
+            if let newsObject = newsObjects.first(where: { $0.id == article.id }) {
+                dataManager.delete(news: newsObject)
+            }
+            
             completion(true)
         }
-        
         
         // Дії які виконуються під час проведення пальцем по рядках таблиці
         let configuration = UISwipeActionsConfiguration(actions: [unfavoriteAction, favoriteAction])

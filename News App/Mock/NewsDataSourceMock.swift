@@ -8,9 +8,8 @@
 
 import Foundation
 
-
-
 struct NewsDataSourceMock {
+    
     static let newsArray = [
         NewsCell(title: "Desperate for a BLT? How to make 12 classic tomato recipes – without any tomatoes",author:"Dale Berning Sawa", source: "The Guardian", imageCellView:"https://i.guim.co.uk/img/media/67b085f20ff0149e0840abf2e7f8a792c311a576/0_2_1754_1052/master/1754.jpg?width=1200&height=630&quality=85&auto=format&fit=crop&overlay-align=bottom%2Cleft&overlay-width=100p&overlay-base64=L2ltZy9zdGF0aWMvb3ZlcmxheXMvdGctZGVmYXVsdC5wbmc&enable=upscale&s=8fb651975502f99234b76e58efcc78af", id: UUID().uuidString),
         NewsCell(title: "Gen Z is more enthusiastic about iPhones than Androids because of their cameras, screen layouts, and apps", author: "kduffy@insider.com (Kate Duffy)", source: "Business Insider", imageCellView: "https://i.insider.com/63fdec99d5d80a001827749c?width=1200&format=jpeg", id: UUID().uuidString),
@@ -35,4 +34,10 @@ struct NewsDataSourceMock {
         NewsCell(title: "Here's the Key to Warren Buffett's Long-Term Outperformance", author: "newsfeedback@fool.com (Matthew Frankel, CFP®)", source: "Motley Fool", imageCellView:  "https://g.foolcdn.com/editorial/images/722729/buffett-approved-3.jpg", id: UUID().uuidString),
         NewsCell(title: "Apple Watch’s March Activity Challenge is dedicated to International Women’s Day", author: "Tech Desk", source: "The Indian Express", imageCellView: "https://images.indianexpress.com/2023/03/apple-watch-womens-day-challenge-featured.jpg", id: UUID().uuidString)
     ]
+    
 }
+
+
+
+
+
