@@ -12,11 +12,13 @@ protocol NewsDataManagerProtocol {
     func save(news: NewsObject)
     func getNews() -> Results<NewsObject>
     func delete(news: NewsObject)
+    func setFavoriteValue(id: String, value: Bool) // TODO: add func for setup favorite/unfavorite value for object
 }
 
 final class NewsDataManager: NewsDataManagerProtocol  {
  
     let realm = try! Realm()
+    var isFavorite: Bool = false
     
     func save(news: NewsObject) {
         try! realm.write {
@@ -34,5 +36,14 @@ final class NewsDataManager: NewsDataManagerProtocol  {
     func getNews() -> Results<NewsObject> {
         return realm.objects(NewsObject.self)
         
+    }
+    
+    func setFavoriteValue(id: String, value: Bool) {
+        for object in getNews() {
+            if object.id == id {
+                isFavorite = value
+                save(news: object)
+            }
+        }
     }
 }

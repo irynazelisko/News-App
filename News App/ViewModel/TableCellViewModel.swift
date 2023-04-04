@@ -23,6 +23,7 @@ final class TableCellViewModel: TableCellPresentationModel {
     let imageCellView: String
     let id: String
     
+    
     init(news: NewsCell){
         self.author = news.author
         self.title = news.title
@@ -30,6 +31,21 @@ final class TableCellViewModel: TableCellPresentationModel {
         self.imageCellView = news.imageCellView
         self.id = news.id
     }
+    
+    // TODO:  1. add new init
+    init(news: NewsObject) {
+        guard let author = news.author,
+              let title = news.title,
+              let source = news.source,
+              let imageCellView = news.imageCellView,
+              let id = news.id  else { fatalError() }
+        self.author = author
+        self.title = title
+        self.source = source
+        self.imageCellView = imageCellView
+        self.id = id
+    }
+    
     
     func loadImage(completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: imageCellView) else {
