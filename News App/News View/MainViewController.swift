@@ -10,6 +10,8 @@ import UIKit
 final class MainViewController: UIViewController {
     
     var tableViewModel = NewsViewViewModel()
+    let favoritiesViewModel = FavoritiesViewModel()
+    
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -17,8 +19,29 @@ final class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
+        setUp()
+    }
+    
+    func setUp(){
+        let favoritesButton = UIBarButtonItem(image: UIImage(systemName: "heart.text.square"), style: .plain, target: self,action: #selector(showFavorites))
+        navigationItem.rightBarButtonItem = favoritesButton
+        navigationItem.rightBarButtonItem?.tintColor = .systemPink
+    }
+    
+    @objc func showFavorites() {
+        performSegue(withIdentifier: "showFavorites", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFavorites" {
+            let favoritesViewController = segue.destination as! FavoritiesViewController
+            favoritesViewController.favoritiesViewModel.favoritesList = tableViewModel.favoriteNewsArray
+            
+        }
     }
 }
+
+
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,6 +57,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         articleCell.setUpData(viewModel: article)
+        let icon = tableViewModel.favoriteIcon(id: article.id)
+        articleCell.upDateFavoriteButton(icon: icon)
         
         return articleCell
     }
@@ -78,7 +103,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newCell = tableViewModel.newsCells[indexPath.row]
         let urlToImage = newCell.imageCellView
-        
         let webViewController = WebViewController(urlString: urlToImage)
         self.navigationController?.pushViewController(webViewController, animated: true)
     }
