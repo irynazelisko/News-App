@@ -16,9 +16,8 @@ protocol NewsDataManagerProtocol {
 }
 
 final class NewsDataManager: NewsDataManagerProtocol  {
- 
+    
     let realm = try! Realm()
-    var isFavorite: Bool = false
     
     func save(news: NewsObject) {
         try! realm.write {
@@ -26,24 +25,30 @@ final class NewsDataManager: NewsDataManagerProtocol  {
         }
         print("Added to database")
     }
+    
     func delete(news: NewsObject){
-        try! realm.write{
+        try! realm.write {
             realm.delete(news)
         }
         print("Deleted from database")
     }
-
+    
     func getNews() -> Results<NewsObject> {
-        return realm.objects(NewsObject.self)
-        
+        let objects =  realm.objects(NewsObject.self)
+        print(objects)
+        return objects
     }
     
     func setFavoriteValue(id: String, value: Bool) {
         for object in getNews() {
             if object.id == id {
-                isFavorite = value
+                try! realm.write {
+                object.isFavorite = value
+                
+            }
                 save(news: object)
             }
         }
     }
 }
+

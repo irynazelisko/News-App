@@ -13,15 +13,18 @@ protocol TableCellPresentationModel {
     var source: String { get }
     var imageCellView: String { get }
     var id: String { get }
+    var isFavorite: Bool { get }
     func loadImage(completion: @escaping (UIImage?) -> Void)
 }
 
 final class TableCellViewModel: TableCellPresentationModel {
+
     let author: String
     let title: String
     let source: String
     let imageCellView: String
     let id: String
+    var isFavorite: Bool
     
     
     init(news: NewsCell){
@@ -30,6 +33,7 @@ final class TableCellViewModel: TableCellPresentationModel {
         self.source = news.source
         self.imageCellView = news.imageCellView
         self.id = news.id
+        self.isFavorite = news.isFavorite
     }
     
     // TODO:  1. add new init
@@ -38,12 +42,17 @@ final class TableCellViewModel: TableCellPresentationModel {
               let title = news.title,
               let source = news.source,
               let imageCellView = news.imageCellView,
-              let id = news.id  else { fatalError() }
+              let id = news.id else { fatalError() }
         self.author = author
         self.title = title
         self.source = source
         self.imageCellView = imageCellView
         self.id = id
+        self.isFavorite = news.isFavorite
+    }
+    
+    func favoriteIcon() -> String {
+        self.isFavorite ? "heart.fill": "heart"
     }
     
     
