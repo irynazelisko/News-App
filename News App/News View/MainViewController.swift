@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import RealmSwift
+import Realm
 
 final class MainViewController: UIViewController {
     
     var tableViewModel = NewsViewViewModel()
     let favoritiesViewModel = FavoritiesViewModel()
     let refreshControl = UIRefreshControl()
+    var realmDB: Realm!
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +27,17 @@ final class MainViewController: UIViewController {
         // cтворюємо об'єкт UIRefreshControl для оновлення вмісту таблиці та додаємо до таблички
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
+        
+        realmDB = try! Realm()
+        print(realmDB.configuration.fileURL!)
+        
+            // callback
+        tableViewModel.favoritesCallback = { [weak self] _ in
+            guard let visibleIndexPaths = self?.tableView.indexPathsForVisibleRows else {
+                return
+            }
+            self?.tableView.reloadRows(at: visibleIndexPaths, with: .automatic)
+        }
     }
     
     @objc func refreshData(_ sender: UIRefreshControl) {
@@ -65,7 +79,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         articleCell.setUpData(viewModel: article)
-        let icon = tableViewModel.favoriteIcon(id: article.id)
+        let icon = article.favoriteIcon()
         articleCell.upDateFavoriteButton(icon: icon)
         
         return articleCell
@@ -78,29 +92,32 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         // Створюємо favorite action
         let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { [weak self] (action, view, completion) in
             self?.tableViewModel.addToFavorites(with: article.id)
-            if let icon = self?.tableViewModel.favoriteIcon(id: article.id) {
-                if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
-                    cell.upDateFavoriteButton(icon: icon)
-                }
-                print("Added to favorites")
+            let icon = article.favoriteIcon()
+            if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
+                self?.tableView.reloadData()
+                cell.upDateFavoriteButton(icon: icon)
+                print(icon)
             }
+            print("Added to favorites")
+            
             completion(true)
         }
+        
         favoriteAction.backgroundColor = .lightGray
         
         
         // Створюємо unfavorite action
         let unfavoriteAction = UIContextualAction(style: .destructive, title: "Unfavorite") { [weak self] (action, view, completion) in
             self?.tableViewModel.removeFromFavorites(with: article.id)
-            if let icon = self?.tableViewModel.favoriteIcon(id: article.id) {
-                if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
-                    cell.upDateFavoriteButton(icon: icon)
-                }
-                print("Removed from favorites")
+            let icon = article.favoriteIcon()
+            if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
+                self?.tableView.reloadData()
+                cell.upDateFavoriteButton(icon: icon)
+                print(icon)
             }
+            print("Removed from favorites")
             completion(true)
         }
-        
         
         // Дії які виконуються під час проведення пальцем по рядках таблиці
         let configuration = UISwipeActionsConfiguration(actions: [unfavoriteAction, favoriteAction])
