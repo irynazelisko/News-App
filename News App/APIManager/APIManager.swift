@@ -8,7 +8,6 @@
 import Foundation
 import RealmSwift
 
-
 struct NewsResponce: Codable {
     let source: Source
     let author: String

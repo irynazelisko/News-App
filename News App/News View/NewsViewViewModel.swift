@@ -17,6 +17,7 @@ protocol NewsViewPresentationModel {
 }
 
 let newsDataManager = NewsDataManager()
+let apiManager = APIManager()
 
 final class NewsViewViewModel: NewsViewPresentationModel {
     var favoritesCallback: ((Bool) -> ())?
@@ -41,4 +42,14 @@ final class NewsViewViewModel: NewsViewPresentationModel {
         newsCells = newsDataManager.getNews().map{ TableCellViewModel(news: $0) }
        favoritesCallback?(false)
     }
+
+    func fetchData() {
+        let realm = try! Realm()
+        let oldNews = realm.objects(NewsObject.self)
+        try! realm.write {
+            realm.delete(oldNews)
+        }
+        apiManager.fetchNews()
+    }
 }
+
