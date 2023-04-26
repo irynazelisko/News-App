@@ -41,7 +41,6 @@ final class MainViewController: UIViewController {
     }
     
     @objc func refreshData(_ sender: UIRefreshControl) {
-        tableView.reloadData()
         tableViewModel.fetchData()
         sender.endRefreshing() 
     }

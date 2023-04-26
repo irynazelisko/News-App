@@ -35,7 +35,7 @@ final class NewsDataManager: NewsDataManagerProtocol  {
     
     func getNews() -> Results<NewsObject> {
         let objects =  realm.objects(NewsObject.self)
-//        print(objects)
+        print(objects)
         return objects
     }
     

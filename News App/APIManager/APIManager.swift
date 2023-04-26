@@ -8,20 +8,27 @@
 import Foundation
 import RealmSwift
 
+
+struct Responce: Codable {
+    let status: String
+    let totalResults: Int
+    let articles: [NewsResponce]
+}
+
 struct NewsResponce: Codable {
-    let source: Source
-    let author: String
-    let title: String
-    let description: String
-    let url: String
-    let urlToImage: String
-    let publishedAt: String
-    let content: String
+    let source: Source?
+    let author: String?
+    let title: String?
+    let description: String?
+    let url: String?
+    let urlToImage: String?
+    let publishedAt: String?
+    let content: String?
 }
 
 struct Source: Codable {
-    let id: String
-    let name: String
+    let id: String?
+    let name: String?
 }
 
 class APIManager {
@@ -33,21 +40,24 @@ class APIManager {
                 
                 do {
                     let jsonDecoder = JSONDecoder()
-                    let newsResponce = try jsonDecoder.decode(NewsResponce.self, from: data)
+                    let newsResponce = try jsonDecoder.decode(Responce.self, from: data)
                     
-                    let newsObject = NewsObject()
-                    newsObject.title = newsResponce.title
-                    newsObject.author = newsResponce.author
-                    newsObject.source = newsResponce.source.name
-                    newsObject.id = UUID().uuidString
-                    newsObject.imageCellView = newsResponce.urlToImage
-                    
-                    let realm = try Realm()
-                    try realm.write {
-                        realm.add(newsObject, update: .modified)
+                    for article in newsResponce.articles {
+                        let newsObject = NewsObject()
+                        
+                        newsObject.title = article.title
+                        newsObject.author = article.author
+                        newsObject.source = article.source?.name
+                        newsObject.id = UUID().uuidString
+                        newsObject.imageCellView = article.urlToImage
+                        
+                        let realm = try Realm()
+                        try realm.write {
+                            realm.add(newsObject)
+                        }
                     }
                 } catch {
-                    print("Error: \(error.localizedDescription)")
+                    print(String(describing: error))
                 }
             }
             task.resume()
