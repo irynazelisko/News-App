@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.6.4)
+  - MBProgressHUD (1.2.0)
   - Realm (10.36.0):
     - Realm/Headers (= 10.36.0)
   - Realm/Headers (10.36.0)
@@ -8,19 +9,22 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - MBProgressHUD
   - RealmSwift
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - MBProgressHUD
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   Realm: 3fd136cb4c83a927482a7f1612496d37beed3cf5
   RealmSwift: 513d4dcbf5bfc4d573454088b592685fc48dd716
 
-PODFILE CHECKSUM: 93c18bbe996b57dbc26b1cbe757ee1bfd67810ef
+PODFILE CHECKSUM: 73f821b68f6d378d8db28f6208d74b28cbed1e65
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1
