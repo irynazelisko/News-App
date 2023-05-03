@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+
 protocol TableCellPresentationModel {
     var author: String { get }
     var title: String { get }
@@ -36,7 +37,6 @@ final class TableCellViewModel: TableCellPresentationModel {
         self.isFavorite = news.isFavorite
     }
     
-    // TODO:  1. add new init
     init(news: NewsObject) {
         guard let author = news.author,
               let title = news.title,

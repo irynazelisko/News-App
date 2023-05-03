@@ -43,13 +43,13 @@ final class NewsViewViewModel: NewsViewPresentationModel {
        favoritesCallback?(false)
     }
 
-    func fetchData() {
+    func fetchData(completion: @escaping ((Bool, String?) -> Void)) {
         let realm = try! Realm()
         let oldNews = realm.objects(NewsObject.self)
         try! realm.write {
             realm.delete(oldNews)
         }
-        apiManager.fetchNews()
+        apiManager.fetchNews(completion: completion)
     }
 }
 

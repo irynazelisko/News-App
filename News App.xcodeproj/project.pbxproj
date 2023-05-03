@@ -125,12 +125,12 @@
 		82BE218529A3DA3B004B302B /* News App */ = {
 			isa = PBXGroup;
 			children = (
+				82BE218629A3DA3B004B302B /* AppDelegate.swift */,
+				82BE218829A3DA3B004B302B /* SceneDelegate.swift */,
 				822FD19D29EFCCB80056CD04 /* APIManager */,
 				827304EF29D4B0470049E4F2 /* DataManager */,
 				821C4DA729CDCD2F00559F37 /* Favorite List */,
 				82CE91E929C48122006CB261 /* News View */,
-				82BE218629A3DA3B004B302B /* AppDelegate.swift */,
-				82BE218829A3DA3B004B302B /* SceneDelegate.swift */,
 				82FAE89329AEB5070074CCE6 /* Model */,
 				82FAE89229AEB4F80074CCE6 /* View */,
 				82FAE89429AEB5100074CCE6 /* ViewModel */,

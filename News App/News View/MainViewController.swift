@@ -7,8 +7,6 @@
 
 import UIKit
 import RealmSwift
-import Realm
-import MBProgressHUD
 
 final class MainViewController: UIViewController {
     
@@ -39,11 +37,33 @@ final class MainViewController: UIViewController {
             }
             self?.tableView.reloadRows(at: visibleIndexPaths, with: .automatic)
         }
+        
+        tableViewModel.fetchData(completion: { [weak self] result, errorMessage in
+            guard let errorMessage = errorMessage else {
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                return
+            }
+            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ОК", style: .default))
+            self?.present(alert, animated: true, completion: nil)
+        })
     }
     
     @objc func refreshData(_ sender: UIRefreshControl) {
-        tableViewModel.fetchData()
-        sender.endRefreshing() 
+        tableViewModel.fetchData(completion: { [weak self] result, errorMessage in
+            guard let errorMessage = errorMessage else {
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                return
+            }
+            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ОК", style: .default))
+            self?.present(alert, animated: true, completion: nil)
+        })
+        sender.endRefreshing()
     }
     
     

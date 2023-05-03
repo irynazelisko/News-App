@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--BBC News-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="News_App" customModuleProvider="target" sceneMemberID="viewController">
@@ -41,7 +41,7 @@
                             <constraint firstItem="fqK-hX-jjU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jn1-cl-WDY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="40j-H0-YyA"/>
+                    <navigationItem key="navigationItem" title="BBC News" id="40j-H0-YyA"/>
                     <connections>
                         <outlet property="tableView" destination="fqK-hX-jjU" id="WmH-nq-cLt"/>
                         <segue destination="b04-P1-74u" kind="show" id="3Xu-DG-tZa"/>
@@ -117,6 +117,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="D99-go-Jjl">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

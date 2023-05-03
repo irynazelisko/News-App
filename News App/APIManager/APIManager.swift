@@ -8,7 +8,6 @@
 import Foundation
 import RealmSwift
 import MBProgressHUD
-import UIKit
 
 
 struct Responce: Codable {
@@ -33,8 +32,8 @@ struct Source: Codable {
     let name: String?
 }
 
-class APIManager {
-    func fetchNews() {
+final class APIManager {
+    func fetchNews(completion: @escaping ((Bool, String?) -> Void)) {
         if  let url = URL(string: "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=41ce3b8fd999490a8f6766af77686f62") {
             let request = URLRequest(url: url)
             
@@ -51,7 +50,9 @@ class APIManager {
                     }
                 }
                 
-                guard let data = data else { return }
+                guard let data = data else {
+                    completion(false, "Server error")
+                    return }
                 
                 do {
                     let jsonDecoder = JSONDecoder()
@@ -71,8 +72,9 @@ class APIManager {
                             realm.add(newsObject)
                         }
                     }
+                    completion(true, nil)
                 } catch {
-                    print(String(describing: error))
+                    completion(false, String(describing: error))
                 }
             }
             task.resume()
