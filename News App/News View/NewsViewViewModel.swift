@@ -44,10 +44,9 @@ final class NewsViewViewModel: NewsViewPresentationModel {
     }
 
     func fetchData(completion: @escaping ((Bool, String?) -> Void)) {
-        let realm = try! Realm()
-        let oldNews = realm.objects(NewsObject.self)
-        try! realm.write {
-            realm.delete(oldNews)
+        let oldNews = newsDataManager.getNews()
+        for object in oldNews {
+            newsDataManager.delete(news: object)
         }
         apiManager.fetchNews(completion: completion)
     }
