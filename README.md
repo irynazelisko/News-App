@@ -3,7 +3,6 @@ News App is an application for displaying BBC news. It utilizes the following te
  ```shell
 
 CocoaPods: Realm and MBProgressHUD
- ```shell
 HTTP requests and JSON data handling
 Storing data in Realm database using Realm Studio
 Configuring WKWebView functionality
