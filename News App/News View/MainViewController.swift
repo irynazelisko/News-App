@@ -6,10 +6,15 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class MainViewController: UIViewController {
     
     var tableViewModel = NewsViewViewModel()
+    let favoritiesViewModel = FavoritiesViewModel()
+    let refreshControl = UIRefreshControl()
+    var realmDB: Realm!
+    
     
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
@@ -17,6 +22,67 @@ final class MainViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         self.tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
+        setUp()
+        // cтворюємо об'єкт UIRefreshControl для оновлення вмісту таблиці та додаємо до таблички
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+        
+        realmDB = try! Realm()
+        print(realmDB.configuration.fileURL!)
+        
+            // callback
+        tableViewModel.favoritesCallback = { [weak self] _ in
+            guard let visibleIndexPaths = self?.tableView.indexPathsForVisibleRows else {
+                return
+            }
+            self?.tableView.reloadRows(at: visibleIndexPaths, with: .automatic)
+        }
+        
+        tableViewModel.fetchData(completion: { [weak self] result, errorMessage in
+            guard let errorMessage = errorMessage else {
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                return
+            }
+            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ОК", style: .default))
+            self?.present(alert, animated: true, completion: nil)
+        })
+    }
+    
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        tableViewModel.fetchData(completion: { [weak self] result, errorMessage in
+            guard let errorMessage = errorMessage else {
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                return
+            }
+            let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "ОК", style: .default))
+            self?.present(alert, animated: true, completion: nil)
+        })
+        sender.endRefreshing()
+    }
+    
+    
+    func setUp(){
+        let favoritesButton = UIBarButtonItem(image: UIImage(systemName: "heart.text.square"), style: .plain, target: self,action: #selector(showFavorites))
+        navigationItem.rightBarButtonItem = favoritesButton
+        navigationItem.rightBarButtonItem?.tintColor = .systemPink
+    }
+    
+    @objc func showFavorites() {
+        performSegue(withIdentifier: "showFavorites", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFavorites" {
+            let favoritesViewController = segue.destination as! FavoritiesViewController
+            favoritesViewController.favoritiesViewModel.favoritesList = tableViewModel.favoriteNewsArray
+            
+        }
     }
 }
 
@@ -34,6 +100,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         articleCell.setUpData(viewModel: article)
+        let icon = article.favoriteIcon()
+        articleCell.upDateFavoriteButton(icon: icon)
         
         return articleCell
     }
@@ -45,29 +113,32 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         // Створюємо favorite action
         let favoriteAction = UIContextualAction(style: .normal, title: "Favorite") { [weak self] (action, view, completion) in
             self?.tableViewModel.addToFavorites(with: article.id)
-            if let icon = self?.tableViewModel.favoriteIcon(id: article.id) {
-                if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
-                    cell.upDateFavoriteButton(icon: icon)
-                }
-                print("Added to favorites")
+            let icon = article.favoriteIcon()
+            if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
+                self?.tableView.reloadData()
+                cell.upDateFavoriteButton(icon: icon)
+                print(icon)
             }
+            print("Added to favorites")
+            
             completion(true)
         }
+        
         favoriteAction.backgroundColor = .lightGray
         
         
         // Створюємо unfavorite action
         let unfavoriteAction = UIContextualAction(style: .destructive, title: "Unfavorite") { [weak self] (action, view, completion) in
             self?.tableViewModel.removeFromFavorites(with: article.id)
-            if let icon = self?.tableViewModel.favoriteIcon(id: article.id) {
-                if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
-                    cell.upDateFavoriteButton(icon: icon)
-                }
-                print("Removed from favorites")
+            let icon = article.favoriteIcon()
+            if let cell = tableView.cellForRow(at: indexPath) as? NewsTableViewCell {
+                self?.tableView.reloadData()
+                cell.upDateFavoriteButton(icon: icon)
+                print(icon)
             }
+            print("Removed from favorites")
             completion(true)
         }
-        
         
         // Дії які виконуються під час проведення пальцем по рядках таблиці
         let configuration = UISwipeActionsConfiguration(actions: [unfavoriteAction, favoriteAction])
@@ -78,7 +149,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newCell = tableViewModel.newsCells[indexPath.row]
         let urlToImage = newCell.imageCellView
-        
         let webViewController = WebViewController(urlString: urlToImage)
         self.navigationController?.pushViewController(webViewController, animated: true)
     }

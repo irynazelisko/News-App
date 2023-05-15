@@ -6,36 +6,49 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol NewsViewPresentationModel {
     var  newsCells: [TableCellViewModel] { get }
-    func favoriteIcon(id: String) -> String
     func addToFavorites(with id: String)
     func removeFromFavorites(with id: String)
-    
+    var favoriteNewsArray: [String] { get }
+    var favoritesCallback: ((Bool) -> ())? { get set }
 }
 
+let newsDataManager = NewsDataManager()
+let apiManager = APIManager()
+
 final class NewsViewViewModel: NewsViewPresentationModel {
-    func favoriteIcon(id: String) -> String {
-        if favoriteNewsArray.contains(id){
-            return "heart.fill"
-        }
-        return "heart"
+    var favoritesCallback: ((Bool) -> ())?
+
+    let realm = try! Realm()
+    
+    var favoriteNewsArray: [String] {
+        newsDataManager.getNews().filter({$0.isFavorite}).compactMap({$0.id})
     }
     
-    var newsCells: [TableCellViewModel] = NewsDataSourceMock.newsArray.map{ TableCellViewModel(news: $0) }
+    var newsCells: [TableCellViewModel] = newsDataManager.getNews().map{ TableCellViewModel(news: $0) }
     
-    var favoriteNewsArray: [String] = []
-    
+
     func addToFavorites(with id: String) {
-        favoriteNewsArray.append(id)
+        newsDataManager.setFavoriteValue(id: id, value: true)
+        newsCells = newsDataManager.getNews().map{ TableCellViewModel(news: $0) }
+        favoritesCallback?(true)
     }
     
     func removeFromFavorites(with id: String) {
-        if let index = favoriteNewsArray.firstIndex(of: id) {
-          favoriteNewsArray.remove(at: index)
-        }
+        newsDataManager.setFavoriteValue(id: id, value: false)
+        newsCells = newsDataManager.getNews().map{ TableCellViewModel(news: $0) }
+       favoritesCallback?(false)
     }
-    
-    
+
+    func fetchData(completion: @escaping ((Bool, String?) -> Void)) {
+        let oldNews = newsDataManager.getNews()
+        for object in oldNews {
+            newsDataManager.delete(news: object)
+        }
+        apiManager.fetchNews(completion: completion)
+    }
 }
+
