@@ -16,11 +16,11 @@ Implementing pull to refresh and a loader for data reloading <br/>
 
 # Usage
 
-Run the project on a simulator or device.
-The app will display the main page with a list of BBC news articles.
-To refresh the news, pull down on the screen.
-To add an article to the favorites list, swipe left on the selected article and press "Add to Favorites".
-To view the full article, tap on the selected news item.
-To remove an article from the favorites list, swipe left on the selected article in the favorites list and press "Delete".
-To view the list of favorite articles, tap the button in the top-right corner of the screen.
-Note: To access the favorites list, you need to have at least one article added to your favorites.
+Run the project on a simulator or device. <br/>
+The app will display the main page with a list of BBC news articles. <br/>
+To refresh the news, pull down on the screen. <br/>
+To add an article to the favorites list, swipe left on the selected article and press "Add to Favorites". <br/>
+To view the full article, tap on the selected news item. <br/>
+To remove an article from the favorites list, swipe left on the selected article in the favorites list and press "Delete". <br/>
+To view the list of favorite articles, tap the button in the top-right corner of the screen. <br/>
+Note: To access the favorites list, you need to have at least one article added to your favorites. <br/>
