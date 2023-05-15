@@ -1,6 +1,5 @@
 # News-App
-News App is an application for displaying BBC news. It utilizes the following technologies and libraries:
- ```shell
+News App is an application for displaying BBC news. It utilizes the following technologies and libraries: <br/>
 
 CocoaPods: Realm and MBProgressHUD
 HTTP requests and JSON data handling
