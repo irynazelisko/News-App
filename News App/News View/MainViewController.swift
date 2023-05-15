@@ -148,7 +148,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newCell = tableViewModel.newsCells[indexPath.row]
-        let urlToImage = newCell.imageCellView
+        let urlToImage = newCell.url
         let webViewController = WebViewController(urlString: urlToImage)
         self.navigationController?.pushViewController(webViewController, animated: true)
     }

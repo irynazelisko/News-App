@@ -66,6 +66,8 @@ final class APIManager {
                         newsObject.source = article.source?.name
                         newsObject.id = UUID().uuidString
                         newsObject.imageCellView = article.urlToImage
+                        newsObject.url = article.url
+                   
                         
                         let realm = try Realm()
                         try realm.write {

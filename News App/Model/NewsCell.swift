@@ -15,6 +15,7 @@ class NewsObject: Object {
     @objc dynamic var imageCellView: String?
     @objc dynamic var id: String?
     @objc dynamic var isFavorite = false
+    @objc dynamic var url: String?
     
     override static func primaryKey() -> String? { // кажемо, що кожен об'єкт у базі даних буде унікальним за значенням його id
         return "id"
@@ -28,4 +29,5 @@ struct NewsCell {
     let imageCellView: String
     let id: String
     let isFavorite: Bool
+    let url: String
 }

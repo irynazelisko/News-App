@@ -15,6 +15,7 @@ protocol TableCellPresentationModel {
     var imageCellView: String { get }
     var id: String { get }
     var isFavorite: Bool { get }
+    var url: String { get }
     func loadImage(completion: @escaping (UIImage?) -> Void)
 }
 
@@ -26,6 +27,7 @@ final class TableCellViewModel: TableCellPresentationModel {
     let imageCellView: String
     let id: String
     var isFavorite: Bool
+    var url: String
     
     
     init(news: NewsCell){
@@ -35,6 +37,7 @@ final class TableCellViewModel: TableCellPresentationModel {
         self.imageCellView = news.imageCellView
         self.id = news.id
         self.isFavorite = news.isFavorite
+        self.url = news.url
     }
     
     init(news: NewsObject) {
@@ -42,6 +45,7 @@ final class TableCellViewModel: TableCellPresentationModel {
               let title = news.title,
               let source = news.source,
               let imageCellView = news.imageCellView,
+              let url = news.url,
               let id = news.id else { fatalError() }
         self.author = author
         self.title = title
@@ -49,6 +53,7 @@ final class TableCellViewModel: TableCellPresentationModel {
         self.imageCellView = imageCellView
         self.id = id
         self.isFavorite = news.isFavorite
+        self.url = url
     }
     
     func favoriteIcon() -> String {
