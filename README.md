@@ -1,20 +1,22 @@
 # News-App
 News App is an application for displaying BBC news. It utilizes the following technologies and libraries:
+ ```shell
 
 CocoaPods: Realm and MBProgressHUD
+ ```shell
 HTTP requests and JSON data handling
 Storing data in Realm database using Realm Studio
 Configuring WKWebView functionality
 Saving data to a favorites list and deleting items using swipe actions
 Implementing pull to refresh and a loader for data reloading
 
-#Installation
-1.Clone the repository using the following command: git clone ...
-2.Open the terminal and navigate to the project directory.
-3.Install dependencies using CocoaPods: pod install
-4.Open the project file NewsApp.xcworkspace in Xcode.
+# Installation
+1.Clone the repository using the following command: git clone ...  
+2.Open the terminal and navigate to the project directory.  
+3.Install dependencies using CocoaPods: pod install. 
+4.Open the project file NewsApp.xcworkspace in Xcode.  
 
-#Usage
+# Usage
 
 Run the project on a simulator or device.
 The app will display the main page with a list of BBC news articles.
